@@ -8,7 +8,7 @@ export class TableTemplate extends BaseModel {
 
   description: string = null;
 
-  structure: Record<string, ColumnDescriptor> = null;
+  structure: ColumnDescriptor[] = null;
 
   constructor(entity: Partial<TableTemplate> = null) {
     super(entity);
@@ -16,14 +16,6 @@ export class TableTemplate extends BaseModel {
       return;
     }
     ObjectUtils.constructorFiller(this, entity);
-    this.structureFiller(entity.structure);
-  }
-
-  private structureFiller(structure: Record<string, ColumnDescriptor>): void {
-    if (!structure) {
-      return null;
-    }
-    Object.entries(structure)
-      .forEach(([key, value]) => this.structure[key] = new ColumnDescriptor(value));
+    this.structure = entity.structure?.map((descriptor) => new ColumnDescriptor(descriptor)) ?? [];
   }
 }

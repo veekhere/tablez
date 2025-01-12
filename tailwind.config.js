@@ -52,6 +52,16 @@ export default {
           4: 'hsl(var(--chart-4))',
           5: 'hsl(var(--chart-5))',
         },
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar-background))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))',
+        },
       },
       animation: {
         'scale-pulse': 'scale-pulse 0.5s alternate infinite ease-in-out',
@@ -59,10 +69,15 @@ export default {
       },
       keyframes: {
         'scale-pulse': {
-          '100%': { transform: 'scale(0.8)', opacity: 0.5 },
+          '100%': {
+            transform: 'scale(0.8)',
+            opacity: 0.5,
+          },
         },
         sidechange: {
-          '100%': { transform: 'translateX(24px)' },
+          '100%': {
+            transform: 'translateX(24px)',
+          },
         },
       },
       fontFamily: {

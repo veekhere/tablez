@@ -1,10 +1,8 @@
 import { ObjectUtils } from '@utils/object.utils';
 import { LucideIcon } from 'lucide-react';
-import { v4 as uuidv4 } from 'uuid';
+import { BaseModel } from './base.model';
 
-export class SelectOption<T = any> {
-
-  id = uuidv4();
+export class SelectOption<T = any> extends BaseModel {
 
   label: string = null;
 
@@ -15,6 +13,7 @@ export class SelectOption<T = any> {
   disabled = false;
 
   constructor(entity: Partial<SelectOption<T>> = null) {
+    super(entity);
     if (!entity) {
       return;
     }

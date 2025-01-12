@@ -1,9 +1,7 @@
 import { ObjectUtils } from '@utils/object.utils';
-import { v4 as uuidv4 } from 'uuid';
+import { BaseModel } from './base.model';
 
-export class ContainerBounds {
-
-  id = uuidv4();
+export class ContainerBounds extends BaseModel {
 
   top: number = null;
 
@@ -14,11 +12,11 @@ export class ContainerBounds {
   height: number = null;
 
   constructor(entity: Partial<ContainerBounds> = null) {
+    super(entity);
     if (!entity) {
       return;
     }
     ObjectUtils.constructorFiller(this, entity);
-    this.id = entity.id ?? uuidv4();
   }
 
   static toClientObject(obj: any): ContainerBounds {

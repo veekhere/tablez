@@ -26,7 +26,7 @@ export class RouteTitles {
 export class StoreConstants {
   static readonly LOADER = "loader";
   static readonly COLUMN_DESCRIPTORS = "columnDescriptors";
-  static readonly ALLOWED_FOCUS = "allowedFocus";
+  static readonly TABLE_TEMPLATES = "tableTemplates";
 }
 
 export class StoragePathConstants {

@@ -15,6 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from './ui/alert-dialog';
+import { CommandShortcut } from './ui/command';
 
 type Props = PropsWithChildren<{
   className?: string;
@@ -176,7 +177,7 @@ export function EditorOverlay(props: Props) {
   return (
     <div
       className={cn(
-        'group/overlay box-border relative z-[1] w-full h-full bg-background border-2 border-dashed rounded-md p-[14px] data-[state=active]:border-white/50 data-[state=closed]:border-transparent select-none transition-editor',
+        'group/overlay box-border relative z-[1] w-full h-full p-[14px] border-2 border-dashed rounded-md data-[state=active]:transition-editor data-[state=active]:border-white/50 data-[state=closed]:border-transparent select-none',
         props?.className,
       )}
       data-state={isActive ? OverlayState.Active : OverlayState.Closed}
@@ -184,11 +185,7 @@ export function EditorOverlay(props: Props) {
     >
       {props?.children}
 
-      <div className='absolute w-full pl-4 flex justify-between -bottom-12 left-0 group-data-[state=active]/overlay:opacity-100 group-data-[state=active]/overlay:pointer-events-auto group-data-[state=closed]/overlay:opacity-0 group-data-[state=closed]/overlay:pointer-events-none transition-editor'>
-        <p className='flex text-xs text-muted-foreground-extra'>
-          Press <span className='mx-1 font-mono italic'>ESC</span> to exit selection mode
-        </p>
-
+      <div className='absolute w-full pl-4 flex justify-end -bottom-12 left-0 group-data-[state=active]/overlay:transition-editor group-data-[state=active]/overlay:opacity-100 group-data-[state=active]/overlay:pointer-events-auto group-data-[state=closed]/overlay:opacity-0 group-data-[state=closed]/overlay:pointer-events-none'>
         <div
           className='space-x-2'
           ref={buttonsRef}
@@ -198,6 +195,7 @@ export function EditorOverlay(props: Props) {
             onClick={onCancel}
           >
             Cancel
+            <CommandShortcut className='ml-2'>⎋</CommandShortcut>
           </Button>
 
           {props?.verifyConfirm ? (
@@ -206,7 +204,10 @@ export function EditorOverlay(props: Props) {
               onOpenChange={setVerifyOpen}
             >
               <AlertDialogTrigger asChild>
-                <Button disabled={props?.confirmDisabled}>Confirm</Button>
+                <Button disabled={props?.confirmDisabled}>
+                  Confirm
+                  <CommandShortcut className='ml-2'>↵</CommandShortcut>
+                </Button>
               </AlertDialogTrigger>
 
               <AlertDialogContent className='select-none'>
@@ -226,6 +227,7 @@ export function EditorOverlay(props: Props) {
               onClick={onConfirmVerified}
             >
               Confirm
+              <CommandShortcut className='ml-2'>↵</CommandShortcut>
             </Button>
           )}
         </div>

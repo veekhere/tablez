@@ -1,11 +1,9 @@
 import { ObjectUtils } from '@utils/object.utils';
-import { v4 as uuidv4 } from 'uuid';
 import { ColumnDescriptorSchema } from '../schema/column-descriptor.schema';
+import { BaseModel } from './base.model';
 import { ColumnType } from './enums/column-type.enum';
 
-export class ColumnDescriptor {
-
-  id = uuidv4();
+export class ColumnDescriptor extends BaseModel {
 
   name: string = null;
 
@@ -16,6 +14,7 @@ export class ColumnDescriptor {
   error: boolean = false;
 
   constructor(entity: Partial<ColumnDescriptor> = null) {
+    super(entity);
     if (!entity) {
       return;
     }
