@@ -149,20 +149,32 @@ export function EditorOverlay(props: Props) {
     [isActive],
   );
 
+  const tabHandler = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    },
+    [isActive],
+  );
+
   useLayoutEffect(() => {
     if (isActive) {
       document.addEventListener('keydown', escHandler);
+      document.addEventListener('keydown', tabHandler);
     }
 
-    if (isActive && !verifyOpen) {
+    if (isActive && !verifyOpen && !props?.confirmDisabled) {
       document.addEventListener('keydown', enterHandler);
     }
 
     return () => {
       document.removeEventListener('keydown', escHandler);
       document.removeEventListener('keydown', enterHandler);
+      document.removeEventListener('keydown', tabHandler);
     };
-  }, [isActive, verifyOpen, escHandler, enterHandler]);
+  }, [props?.confirmDisabled, isActive, verifyOpen, escHandler, enterHandler]);
 
   function onCancel(): void {
     setIsActive(false);

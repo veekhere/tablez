@@ -29,8 +29,9 @@ export function ColumnListFooter({ className, listLength, columnEditorMode, onAd
   return (
     <div
       className={cn(
-        'flex mt-4 -ml-4 w-[614px]',
+        'flex -ml-4 w-[614px]',
         className,
+        columnEditorMode ? '-mt-2' : 'mt-4',
         listLength > 0 && 'ml-8 w-[calc(100%-2rem)]',
         listLength >= 10 && 'flex-col justify-center items-center',
       )}
