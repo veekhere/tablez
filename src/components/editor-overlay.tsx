@@ -3,7 +3,7 @@ import { Button } from '@components/ui/button';
 import { useEditorOverlay } from '@context/editor-overlay.context';
 import { ContainerBounds } from '@domain/container-bounds.model';
 import { OverlayState } from '@domain/enums/overlay-state.enum';
-import { PropsWithChildren, useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
+import { PropsWithChildren, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
   AlertDialog,
@@ -159,14 +159,17 @@ export function EditorOverlay(props: Props) {
     [isActive],
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isActive) {
       document.addEventListener('keydown', escHandler);
-      document.addEventListener('keydown', tabHandler);
     }
 
-    if (isActive && !verifyOpen && !props?.confirmDisabled) {
-      document.addEventListener('keydown', enterHandler);
+    if (isActive && !verifyOpen) {
+      document.addEventListener('keydown', tabHandler);
+
+      if (!props?.confirmDisabled) {
+        document.addEventListener('keydown', enterHandler);
+      }
     }
 
     return () => {
@@ -203,7 +206,7 @@ export function EditorOverlay(props: Props) {
           ref={buttonsRef}
         >
           <Button
-            variant='ghost'
+            variant='ghost-no-focus'
             onClick={onCancel}
           >
             Cancel
@@ -216,7 +219,10 @@ export function EditorOverlay(props: Props) {
               onOpenChange={setVerifyOpen}
             >
               <AlertDialogTrigger asChild>
-                <Button disabled={props?.confirmDisabled}>
+                <Button
+                  variant='default-no-focus'
+                  disabled={props?.confirmDisabled}
+                >
                   Confirm
                   <CommandShortcut className='ml-2'>↵</CommandShortcut>
                 </Button>
@@ -235,6 +241,7 @@ export function EditorOverlay(props: Props) {
             </AlertDialog>
           ) : (
             <Button
+              variant='default-no-focus'
               disabled={props?.confirmDisabled}
               onClick={onConfirmVerified}
             >
